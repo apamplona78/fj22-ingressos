@@ -34,7 +34,8 @@ public class Sessao {
 	public Sessao() {
 		// TODO Auto-generated constructor stub
 	}
-	public Sessao(LocalTime horario, Sala sala, Filme filme) {
+	
+	public Sessao(LocalTime horario, Filme filme, Sala sala) {
 		setHorario(horario);
 		setSala(sala);
 		setFilme(filme);
