@@ -30,6 +30,9 @@
 			<h2>Lugares</h2>
 			<table class="table-compra" id="lugares">
 				<tbody>
+					<tr class="telao">
+						<td id="tela">Tela</td>
+					</tr>
 					<c:forEach var="map" items="${sessao.mapaDeLugares}">
 						<tr class="fileira">
 							<td class="fileira-valor">${map.key}</td>
@@ -38,8 +41,20 @@
 								<tr>
 								<c:forEach var="lugar" items="${map.value}">
 									<td class="fileira-assento"><figure>
-										<svg class="assento disponivel" id="${lugar.id}"  version="1.0" id="SEAT" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-												 viewBox="0 0 318.224 305.246" enable-background="new 0 0 318.224 305.246" xml:space="preserve">
+										<svg 
+											class="assento ${sessao.isDisponivel(lugar) ? 'disponivel' : 'ocupado'}" 
+											onclick="${sessao.isDisponivel(lugar) ? 'changeCheckbox(this)' : ''}"
+											id="${lugar.id}"  
+											version="1.0" 
+											id="SEAT" 
+											xmlns="http://www.w3.org/2000/svg" 
+											xmlns:xlink="http://www.w3.org/1999/xlink" 
+											x="0px" 
+											y="0px"
+											viewBox="0 0 318.224 305.246" 
+											enable-background="new 0 0 318.224 305.246" 
+											xml:space="preserve"
+											lugar="${lugar.fileira}${lugar.posicao}">
 											<g id="FILL">
 												<path d="M269.395,132.246h-15.02V51.414c0-11.758-9.492-21.248-21.248-21.248H85.097
 													c-11.757,0-21.248,9.49-21.248,21.248v80.833H48.827c-8.535,0-15.127,7.505-14.024,15.971l11.406,87.625
@@ -72,9 +87,6 @@
 							<td>
 						</tr>
 					</c:forEach>
-					<tr class="telao">
-						<td id="tela">Tela</td>
-					</tr>
 					<tr class="legenda legenda-menu">
 						<td>Legenda</td>
 					</tr>
@@ -127,7 +139,7 @@
                 console.log(checkbox.value);
             	var salaId = ${sessao.sala.id};
                 var sessaoId = ${sessao.id};
-                var lugarNome = img.id;
+                var lugarNome = $(img).attr('lugar');//img.id;
                 var linhaId = "linha_" + salaId + "_" + sessaoId + "_" + lugarNome;
 
                 console.log(linhaId);

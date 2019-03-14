@@ -23,4 +23,9 @@ public class DescontoParaBanco implements Desconto {
 		return valor.multiply(new BigDecimal("0.3"));
 	}
 
+	@Override
+	public String getDescricao() {
+		return "Desconto para Banco";
+	}
+
 }

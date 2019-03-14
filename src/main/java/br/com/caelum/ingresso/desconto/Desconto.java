@@ -12,4 +12,6 @@ import java.math.BigDecimal;
 public interface Desconto {
 
 	public BigDecimal aplicar(BigDecimal valor);
+	
+	public String getDescricao();
 }

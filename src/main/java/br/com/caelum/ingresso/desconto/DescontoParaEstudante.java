@@ -19,4 +19,8 @@ public class DescontoParaEstudante implements Desconto {
 		return (valor != null ? valor.divide(new BigDecimal("2.0")) : null);
 	}
 
+	@Override
+	public String getDescricao() {
+		return "Desconto para Estudante";
+	}
 }

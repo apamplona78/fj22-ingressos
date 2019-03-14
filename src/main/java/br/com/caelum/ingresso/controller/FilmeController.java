@@ -18,8 +18,10 @@ import org.springframework.web.servlet.ModelAndView;
 
 import br.com.caelum.ingresso.dao.FilmeDao;
 import br.com.caelum.ingresso.dao.SessaoDao;
+import br.com.caelum.ingresso.model.DetalhesDoFilme;
 import br.com.caelum.ingresso.model.Filme;
 import br.com.caelum.ingresso.model.Sessao;
+import br.com.caelum.ingresso.rest.OmdbClient;
 
 /**
  * Created by nando on 03/03/17.
@@ -27,80 +29,79 @@ import br.com.caelum.ingresso.model.Sessao;
 @Controller
 public class FilmeController {
 
+	@Autowired
+	private FilmeDao filmeDao;
 
-    @Autowired
-    private FilmeDao filmeDao;
-    
-    @Autowired
-    private SessaoDao sessaoDao;
+	@Autowired
+	private SessaoDao sessaoDao;
 
+	@Autowired
+	private OmdbClient client;
 
-    @GetMapping({"/admin/filme", "/admin/filme/{id}"})
-    public ModelAndView form(@PathVariable("id") Optional<Integer> id, Filme filme){
+	@GetMapping({ "/admin/filme", "/admin/filme/{id}" })
+	public ModelAndView form(@PathVariable("id") Optional<Integer> id, Filme filme) {
 
-        ModelAndView modelAndView = new ModelAndView("filme/filme");
+		ModelAndView modelAndView = new ModelAndView("filme/filme");
 
-        if (id.isPresent()){
-            filme = filmeDao.findOne(id.get());
-        }
+		if (id.isPresent()) {
+			filme = filmeDao.findOne(id.get());
+		}
 
-        modelAndView.addObject("filme", filme);
+		modelAndView.addObject("filme", filme);
 
-        return modelAndView;
-    }
+		return modelAndView;
+	}
 
+	@PostMapping("/admin/filme")
+	@Transactional
+	public ModelAndView salva(@Valid Filme filme, BindingResult result) {
 
-    @PostMapping("/admin/filme")
-    @Transactional
-    public ModelAndView salva(@Valid Filme filme, BindingResult result){
+		if (result.hasErrors()) {
+			return form(Optional.ofNullable(filme.getId()), filme);
+		}
 
-        if (result.hasErrors()) {
-            return form(Optional.ofNullable(filme.getId()), filme);
-        }
+		filmeDao.save(filme);
 
-        filmeDao.save(filme);
+		ModelAndView view = new ModelAndView("redirect:/admin/filmes");
 
-        ModelAndView view = new ModelAndView("redirect:/admin/filmes");
+		return view;
+	}
 
-        return view;
-    }
+	@GetMapping(value = "/admin/filmes")
+	public ModelAndView lista() {
 
+		ModelAndView modelAndView = new ModelAndView("filme/lista");
 
-    @GetMapping(value="/admin/filmes")
-    public ModelAndView lista(){
+		modelAndView.addObject("filmes", filmeDao.findAll());
 
-        ModelAndView modelAndView = new ModelAndView("filme/lista");
+		return modelAndView;
+	}
 
-        modelAndView.addObject("filmes", filmeDao.findAll());
+	@DeleteMapping("/admin/filme/{id}")
+	@ResponseBody
+	@Transactional
+	public void delete(@PathVariable("id") Integer id) {
+		filmeDao.delete(id);
+	}
 
-        return modelAndView;
-    }
+	@GetMapping(value = "/filme/em-cartaz")
+	public ModelAndView emCartaz() {
+		ModelAndView view = new ModelAndView("filme/em-cartaz");
+		view.addObject("filmes", filmeDao.findAll());
 
+		return view;
+	}
 
-    @DeleteMapping("/admin/filme/{id}")
-    @ResponseBody
-    @Transactional
-    public void delete(@PathVariable("id") Integer id){
-        filmeDao.delete(id);
-    }
+	@GetMapping(value = "/filme/{id}/detalhe")
+	public ModelAndView detalhes(@PathVariable("id") Integer id) {
+		ModelAndView view = new ModelAndView("filme/detalhe");
 
-    @GetMapping(value="/filme/em-cartaz")
-    public ModelAndView emCartaz() {
-    	ModelAndView view = new ModelAndView("filme/em-cartaz");
-    	view.addObject("filmes", filmeDao.findAll());
-    	
-        return view;
-    }
-    
-    @GetMapping(value="/filme/{id}/detalhe")
-    public ModelAndView detalhes(@PathVariable("id") Integer id) {
-    	ModelAndView view = new ModelAndView("filme/detalhe");
-    	
-    	Filme filme = filmeDao.findOne(id);
-    	List<Sessao> sessoes = sessaoDao.buscaSessoesDoFilme(filme);
-    	
-    	view.addObject("sessoes", sessoes);
-    	
-        return view;
-    }
+		Filme filme = filmeDao.findOne(id);
+		List<Sessao> sessoes = sessaoDao.buscaSessoesDoFilme(filme);
+		Optional<DetalhesDoFilme> detalhes = client.request(filme, DetalhesDoFilme.class);
+
+		view.addObject("sessoes", sessoes);
+		view.addObject("detalhes", detalhes.orElse(new DetalhesDoFilme()));
+		return view;
+	}
 }
