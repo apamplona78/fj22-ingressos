@@ -33,7 +33,7 @@ public class SessaoTest {
 		Sala sala = new Sala("Eldorado - IMax", new BigDecimal("22.5"));
 		Sessao sessao = new Sessao(LocalTime.parse("10:00:00"), filme, sala);
 		
-		Ingresso ingresso = new Ingresso(sessao, TipoDeIngressso.INTEIRO, a1);
+		Ingresso ingresso = new Ingresso(sessao, TipoDeIngresso.INTEIRO, a1);
 		Set<Ingresso> ingressos = Stream.of(ingresso).collect(Collectors.toSet());
 		
 		sessao.setIngressos(ingressos);

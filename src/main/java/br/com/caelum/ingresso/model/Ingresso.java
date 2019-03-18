@@ -32,13 +32,13 @@ public class Ingresso {
 	private Lugar lugar;
 	
 	@Enumerated(EnumType.STRING)
-	private TipoDeIngressso tipoDeIngresso;
+	private TipoDeIngresso tipoDeIngresso;
 	
 	public Ingresso() {
 
 	}
 
-	public Ingresso(Sessao sessao, TipoDeIngressso tipoDeIngresso, Lugar lugar) {
+	public Ingresso(Sessao sessao, TipoDeIngresso tipoDeIngresso, Lugar lugar) {
 		setSessao(sessao);
 		setTipoDeIngresso(tipoDeIngresso);
 		setLugar(lugar);
@@ -78,14 +78,14 @@ public class Ingresso {
 	/**
 	 * @return the tipoDeIngresso
 	 */
-	public TipoDeIngressso getTipoDeIngresso() {
+	public TipoDeIngresso getTipoDeIngresso() {
 		return tipoDeIngresso;
 	}
 
 	/**
 	 * @param tipoDeIngresso the tipoDeIngresso to set
 	 */
-	public void setTipoDeIngresso(TipoDeIngressso tipoDeIngresso) {
+	public void setTipoDeIngresso(TipoDeIngresso tipoDeIngresso) {
 		this.tipoDeIngresso = tipoDeIngresso;
 	}
 }

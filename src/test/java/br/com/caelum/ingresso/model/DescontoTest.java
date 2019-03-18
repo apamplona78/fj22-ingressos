@@ -15,7 +15,7 @@ public class DescontoTest {
 		Lugar lugar = new Lugar("A", 1);
 		Filme filme = new Filme("Rogue One", Duration.ofMinutes(120), "SCI-FI", new BigDecimal("12.00"));
 		Sessao sessao = new Sessao(LocalTime.parse("10:00:00"), filme, sala);
-		Ingresso ingresso = new Ingresso(sessao, TipoDeIngressso.INTEIRO, lugar);
+		Ingresso ingresso = new Ingresso(sessao, TipoDeIngresso.INTEIRO, lugar);
 
 		BigDecimal precoEsperado = new BigDecimal("34.50");
 		Assert.assertEquals(precoEsperado, ingresso.getPreco());
@@ -27,7 +27,7 @@ public class DescontoTest {
 		Lugar lugar = new Lugar("A", 1);
 		Filme filme = new Filme("Rogue One", Duration.ofMinutes(120), "SCI-FI", new BigDecimal("12.00"));
 		Sessao sessao = new Sessao(LocalTime.parse("10:00:00"), filme, sala);
-		Ingresso ingresso = new Ingresso(sessao, TipoDeIngressso.ESTUDANTE, lugar);
+		Ingresso ingresso = new Ingresso(sessao, TipoDeIngresso.ESTUDANTE, lugar);
 
 		BigDecimal precoEsperado = new BigDecimal("17.25");
 		Assert.assertEquals(precoEsperado, ingresso.getPreco());

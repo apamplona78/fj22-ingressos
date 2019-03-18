@@ -14,7 +14,7 @@ import br.com.caelum.ingresso.desconto.SemDesconto;
  * @author lab8402
  *
  */
-public enum TipoDeIngressso {
+public enum TipoDeIngresso {
 	
 	INTEIRO(new SemDesconto()),
 	ESTUDANTE(new DescontoParaEstudante()),
@@ -22,7 +22,7 @@ public enum TipoDeIngressso {
 	
 	private final Desconto desconto;
 
-	TipoDeIngressso(Desconto desconto) {
+	TipoDeIngresso(Desconto desconto) {
 		this.desconto = desconto;
 	}
 	
