@@ -2,11 +2,12 @@ package br.com.caelum.ingresso.model;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import javax.persistence.Entity;
@@ -31,7 +32,7 @@ public class Sala {
     private String nome;
 
     @OneToMany(fetch = FetchType.EAGER)
-    private List<Lugar> lugares = new ArrayList<>();
+    private Set<Lugar> lugares = new HashSet<>();
     
     private BigDecimal preco;
 
@@ -68,11 +69,11 @@ public class Sala {
         this.lugares.add(lugar);
     }
 
-    public List<Lugar> getLugares() {
+    public Set<Lugar> getLugares() {
         return lugares;
     }
 
-    public void setLugares(List<Lugar> lugares) {
+    public void setLugares(Set<Lugar> lugares) {
         this.lugares = lugares;
     }
 

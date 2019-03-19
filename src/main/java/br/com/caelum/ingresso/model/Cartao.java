@@ -5,13 +5,22 @@ package br.com.caelum.ingresso.model;
 
 import java.time.YearMonth;
 
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.NotEmpty;
+
 /**
  * @author lab8402
  *
  */
 public class Cartao {
+	@NotEmpty
 	private String numero;
+	
+	@NotEmpty
 	private Integer cvv;
+	
+	@NotNull
 	private YearMonth vencimento;
 
 	public boolean isValido() {

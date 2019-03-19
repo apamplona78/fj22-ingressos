@@ -8,6 +8,7 @@ import java.util.Optional;
 
 import javax.validation.Valid;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
@@ -85,6 +86,7 @@ public class SessaoController {
 	public ModelAndView lugaresNaSessao(@PathVariable("id") Integer sessaoId) {
 		ModelAndView view = new ModelAndView("sessao/lugares");
 		Sessao sessao = sessaoDao.findOne(sessaoId);
+		BeanUtils.copyProperties(new Carrinho(), carrinho);
 		Optional<ImagemCapa> imagemCapa = client.request(sessao.getFilme(), ImagemCapa.class);
 
 		view.addObject("sessao", sessao);

@@ -88,4 +88,18 @@ public class Ingresso {
 	public void setTipoDeIngresso(TipoDeIngresso tipoDeIngresso) {
 		this.tipoDeIngresso = tipoDeIngresso;
 	}
+
+	/**
+	 * @return the id
+	 */
+	public Integer getId() {
+		return id;
+	}
+
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(Integer id) {
+		this.id = id;
+	}
 }

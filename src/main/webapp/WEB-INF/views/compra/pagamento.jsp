@@ -8,7 +8,7 @@
     <jsp:body>
    		<div class=" col-md-6 col-md-offset-3">
         <form action="/compra/comprar" method="post">
-            <table class="table table-hover ">
+            <table class="table table-hover "> 
                 <thead>
                 <th>Sala</th>
                 <th>Lugar</th>
@@ -46,11 +46,17 @@
                 <div class="col-md-6">
                     <label for="nome">Nome:</label>
                     <input id="nome" type="text" name="nome" class="form-control">
+                    <c:forEach items="${bindingResult.getFieldErrors('nome')}" var="error">
+	                    <span class="text-danger" style="float: right;position: relative;top: -5px;">${error.defaultMessage}</span>
+	                </c:forEach>
                 </div>
 
                 <div class="col-md-6">
                     <label for="sobrenome">Sobrenome:</label>
                     <input id="sobrenome" type="text" name="sobrenome" class="form-control">
+                    <c:forEach items="${bindingResult.getFieldErrors('sobrenome')}" var="error">
+	                    <span class="text-danger" style="float: right;position: relative;top: -5px;">${error.defaultMessage}</span>
+	                </c:forEach>
                 </div>
             </div>
 
@@ -58,6 +64,9 @@
                 <div class="col-md-6">
                     <label for="cpf">CPF:</label>
                     <input id="cpf" type="text" name="cpf" class="form-control">
+                    <c:forEach items="${bindingResult.getFieldErrors('cpf')}" var="error">
+	                    <span class="text-danger" style="float: right;position: relative;top: -5px;">${error.defaultMessage}</span>
+	                </c:forEach>
                 </div>
             </div>
 
@@ -65,20 +74,29 @@
             <div class="form-group">
                 <div class="col-md-8">
                     <label for="cartaoDeCredito">Cartão de Crédito:</label>
-                    <input id="cartaoDeCredito" type="text" name="cartaoDeCredito" class="form-control">
+                    <input id="cartaoDeCredito" type="text" name="cartao.numero" class="form-control">
+                    <c:forEach items="${bindingResult.getFieldErrors('cartao.numero')}" var="error">
+	                    <span class="text-danger" style="float: right;position: relative;top: -5px;">${error.defaultMessage}</span>
+	                </c:forEach>
                 </div>
 
                 <div class="col-md-4">
                     <label for="cvv">CVV:</label>
-                    <input id="cvv" type="text" name="cvv" class="form-control">
+                    <input id="cvv" type="text" name="cartao.cvv" class="form-control">
+                    <c:forEach items="${bindingResult.getFieldErrors('cartao.cvv')}" var="error">
+	                    <span class="text-danger" style="float: right;position: relative;top: -5px;">${error.getDefaultMessage()}</span>
+	                </c:forEach>
                 </div>
             </div>
 
 			<div class="form-group">
 				<div class="col-md-6">
 					<label	for="vencimento">Vencimento:</label>
-					<input	id="vencimento" type="text" name="vencimento" class="form-control">
-				</div>˜
+					<input	id="vencimento" type="text" name="cartao.vencimento" class="form-control">
+					<c:forEach items="${bindingResult.getFieldErrors('cartao.vencimento')}" var="error">
+	                    <span class="text-danger" style="float: right;position: relative;top: -5px;">${error.getDefaultMessage()}</span>
+	                </c:forEach>
+				</div>
 			</div>
 			
             <div class="form-group">
